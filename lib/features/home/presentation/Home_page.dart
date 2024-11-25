@@ -19,7 +19,7 @@ class HomeScreen extends StatelessWidget {
         textAlign: TextAlign.center,),
         centerTitle: true,
       ),
-      drawer: HomeDrawer(),
+      drawer: HomeDrawer(context),
 
       body: Container(
         decoration: const BoxDecoration(
@@ -31,7 +31,7 @@ class HomeScreen extends StatelessWidget {
             HomePageBox1Implementation(),
             HomePageBox2Implementation(),
             HomePageOtherHeading(context),
-            HomePageOtherthings(),
+            HomePageOtherthings(context),
           ],
         ),
       ),

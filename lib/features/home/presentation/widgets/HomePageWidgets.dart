@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pgapp/features/admin/presentation/Admin_Page.dart';
+import 'package:pgapp/features/amenitites/presentation/Amenities_Page.dart';
 
 import '../../../../core/constants/ColorConstants.dart';
 import '../../../../core/constants/constants.dart';
@@ -207,13 +209,13 @@ Padding HomePageOtherHeading(BuildContext context) {
   );
 }
 
-Expanded HomePageOtherthings() {
+Expanded HomePageOtherthings(BuildContext context) {
   return Expanded(  // Ensure that this Expanded is around the entire scrollable area
     child: SingleChildScrollView(
       child: Column(
         children: [
           HomePageUsage("Amenities", Icons.sensors, () {
-            print("navigate to amenities");
+            Navigator.push(context, MaterialPageRoute(builder: (context)=> AmenitiesScreen()));
           },50),
           SH10,
           HomePageUsage("Room Cleaning", Icons.cleaning_services, () {
@@ -229,7 +231,7 @@ Expanded HomePageOtherthings() {
   );
 }
 
-Drawer HomeDrawer() {
+Drawer HomeDrawer(BuildContext context) {
   return Drawer(
     width: 260,
     backgroundColor: CustomColors.primary1,
@@ -275,6 +277,14 @@ Drawer HomeDrawer() {
                 onTap: () {
                   // Handle navigation to About
                   print("Navigate to About");
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.admin_panel_settings, color: Colors.white),
+                title: Text("Admin", style: TextStyle(color: Colors.white)),
+                onTap: () {
+                  // Handle navigation to About
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => AdminScreen()));
                 },
               ),
               ListTile(
