@@ -4,6 +4,7 @@ import 'package:mongo_dart/mongo_dart.dart';
 import 'package:pgapp/features/complaints/model/ComplaintModel.dart';
 
 import '../core/constants/DatabaseConstants.dart';
+import '../features/admin/model/ClientModel.dart';
 
 class MongoDBService {
   static final MongoDBService _instance =
@@ -11,6 +12,7 @@ class MongoDBService {
   late Db _db;
   late DbCollection _amenitiesCollection;
   late DbCollection _complaintCollection;
+  late DbCollection _clientCollection;
 
   // Private constructor for singleton
   MongoDBService._internal();
@@ -28,6 +30,7 @@ class MongoDBService {
       // Initialize collections after connection
       _amenitiesCollection = _db.collection(MONGO_AMENITIES_COLLECTION);
       _complaintCollection = _db.collection(MONGO_COMPLAINTS_COLLECTION);
+      _clientCollection = _db.collection(MONGO_CLIENT_COLLECTION);
     } catch (e) {
       print("Error while connecting to MongoDB: $e");
     }
@@ -35,6 +38,7 @@ class MongoDBService {
 
   DbCollection get amenitiesCollection => _amenitiesCollection;
   DbCollection get complaintCollection => _complaintCollection;
+  DbCollection get clientCollection => _clientCollection;
 
   //Amenities Start
   Future<void> insertAmenitiesData(Map<String, dynamic> data) async {
@@ -58,7 +62,7 @@ class MongoDBService {
 
   //Amenities End
 
-  //Complaint Service
+  //REGION:Complaint Service
   Future<bool> postRaiseComplaints(ComplaintModel complaintModel) async {
     try {
       var complaintMap = complaintModel.toMap();
@@ -87,11 +91,24 @@ class MongoDBService {
           where.eq('_id', complaintId), modify.set('isResolved', true));
       return result.isAcknowledged && result.nModified > 0;
     } catch (e) {
+      print("Error on Changing Status: $e");
       return false;
     }
   }
 
-  //Complaint End
+  //REGIONEND: Complaint End
+
+  //AddClient
+  Future<bool> addClient(ClientModel cm) async{
+    try{
+      var data = cm.toMap();
+      await _clientCollection.insert(data);
+      return true;
+    }catch(e){
+      print("Error on client adding: $e");
+      return false;
+    }
+  }
 
   Future<void> close() async {
     try {
