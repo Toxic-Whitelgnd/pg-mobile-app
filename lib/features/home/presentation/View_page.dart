@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pgapp/core/constants/constants.dart';
+import 'package:pgapp/features/complaints/presentation/ComplaintScreen.dart';
 import 'package:pgapp/features/home/presentation/widgets/HomePageWidgets.dart';
 
+import '../../amenitites/presentation/Amenities_Page.dart';
 import '../model/HomePageModel.dart';
 
 class ViewAllPage extends StatelessWidget {
@@ -15,7 +17,7 @@ class ViewAllPage extends StatelessWidget {
         name: "Amenities",
         icon: Icons.sensors,
         onPressed: () {
-          print("navigate to amenities");
+          Navigator.push(context, MaterialPageRoute(builder: (context)=> AmenitiesScreen()));
         },
       ),
       HomePageItem(
@@ -58,7 +60,7 @@ class ViewAllPage extends StatelessWidget {
         name: "Raise Complaints",
         icon: Icons.comment_outlined,
         onPressed: () {
-          print("navigate to cleaning service");
+          Navigator.push(context, MaterialPageRoute(builder: (context) => ComplaintScreen()));
         },
       ),
       HomePageItem(
