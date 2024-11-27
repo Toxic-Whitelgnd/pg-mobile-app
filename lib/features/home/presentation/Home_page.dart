@@ -28,7 +28,7 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            HomePageBox1Implementation(),
+            HomePageBox1Implementation(context),
             HomePageBox2Implementation(),
             HomePageOtherHeading(context),
             HomePageOtherthings(context),
