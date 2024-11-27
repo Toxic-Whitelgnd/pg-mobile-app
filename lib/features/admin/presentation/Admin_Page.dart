@@ -5,6 +5,7 @@ import '../../../core/constants/constants.dart';
 import '../../amenitites/presentation/Amenities_Page.dart';
 import '../../home/presentation/widgets/HomePageWidgets.dart';
 import 'AddClient_Page.dart';
+import 'AdminClientView_Page.dart';
 import 'ViewComplaintsPage.dart';
 
 class AdminScreen extends StatefulWidget {
@@ -28,8 +29,12 @@ class _AdminScreenState extends State<AdminScreen> {
             Navigator.push(context, MaterialPageRoute(builder: (context)=> AdminComplaintsPage()));
           },50),
           SH10,
-          HomePageUsage("Add Client", Icons.comment_bank, () {
+          HomePageUsage("Add Client", Icons.add, () {
             Navigator.push(context, MaterialPageRoute(builder: (context)=> AdminAddClientScreen()));
+          },50),
+          SH10,
+          HomePageUsage("Rooms", Icons.remove_red_eye, () {
+            Navigator.push(context, MaterialPageRoute(builder: (context)=> const AdminClientViewScreen()));
           },50),
           SH10,
         ],

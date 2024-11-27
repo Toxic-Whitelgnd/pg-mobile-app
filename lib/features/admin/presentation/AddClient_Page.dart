@@ -10,6 +10,8 @@ import 'package:pgapp/core/constants/ColorConstants.dart';
 import 'package:pgapp/features/admin/model/ClientModel.dart';
 import 'package:pgapp/services/MongoDB.dart';
 
+import '../utils/adminConstants.dart';
+
 class AdminAddClientScreen extends StatefulWidget {
   const AdminAddClientScreen({super.key});
 
@@ -18,75 +20,12 @@ class AdminAddClientScreen extends StatefulWidget {
 }
 
 class _AdminAddClientScreenState extends State<AdminAddClientScreen> {
-  List<String> floors = ["floor 1", "floor 2", "floor 3", "floor 4", "floor 5"];
-  List<String> floor1 = [
-    "101",
-    "102",
-    "103",
-    "104",
-    "105",
-    "106",
-    "107",
-    "108",
-    "109",
-    "110"
-  ];
-  List<String> floor2 = [
-    "201",
-    "202",
-    "203",
-    "204",
-    "205",
-    "206",
-    "207",
-    "208",
-    "209",
-    "210"
-  ];
-  List<String> floor3 = [
-    "301",
-    "302",
-    "303",
-    "304",
-    "305",
-    "306",
-    "307",
-    "308",
-    "309",
-    "310"
-  ];
-  List<String> floor4 = [
-    "401",
-    "402",
-    "403",
-    "404",
-    "405",
-    "406",
-    "407",
-    "408",
-    "409",
-    "410"
-  ];
-  List<String> floor5 = [
-    "501",
-    "502",
-    "503",
-    "504",
-    "505",
-    "506",
-    "507",
-    "508",
-    "509",
-    "510"
-  ];
 
-  List<String> _beds = ["bed1", "bed2", "bed3"];
-  List<String> _sharing = ["1", "2", "3", "4"];
 
-  String _selectedFloor = "floor 1";
-  String _selectedRoom = "101";
-  String _selectedBed = "bed1";
-  String _selectedSharing = "1";
+  String _selectedFloor = floors.first;
+  String _selectedRoom = floor1.first;
+  String _selectedBed = beds.first;
+  String _selectedSharing = sharing.first;
 
   List<String>? _selectedFloorRooms;
 
@@ -307,7 +246,7 @@ class _AdminAddClientScreenState extends State<AdminAddClientScreen> {
                     const SizedBox(width: 16),
                     DropdownButton(
                       value: _selectedBed,
-                      items: _beds.map((String f) {
+                      items: beds.map((String f) {
                         return DropdownMenuItem(value: f, child: Text(f));
                       }).toList(),
                       onChanged: _changeBed,
@@ -315,7 +254,7 @@ class _AdminAddClientScreenState extends State<AdminAddClientScreen> {
                     const SizedBox(width: 16),
                     DropdownButton(
                       value: _selectedSharing,
-                      items: _sharing.map((String f) {
+                      items: sharing.map((String f) {
                         return DropdownMenuItem(value: f, child: Text(f));
                       }).toList(),
                       onChanged: _changeSharing,

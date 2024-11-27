@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pgapp/features/admin/presentation/AdminRoomClient_Page.dart';
 import 'package:pgapp/features/admin/presentation/Admin_Page.dart';
 import 'package:pgapp/features/amenitites/presentation/Amenities_Page.dart';
 
@@ -7,7 +8,8 @@ import '../../../../core/constants/ColorConstants.dart';
 import '../../../../core/constants/constants.dart';
 import '../View_page.dart';
 
-Container HomeBox2(String name,IconData iconName,String imagename,Function customfunction) {
+Container HomeBox2(
+    String name, IconData iconName, String imagename, Function customfunction) {
   return Container(
     width: 150,
     height: 130,
@@ -27,8 +29,7 @@ Container HomeBox2(String name,IconData iconName,String imagename,Function custo
           padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
           child: Text(
             name,
-            style: const TextStyle(
-                fontSize: 28, fontWeight: FontWeight.bold),
+            style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
           ),
         ),
         Positioned(
@@ -44,15 +45,13 @@ Container HomeBox2(String name,IconData iconName,String imagename,Function custo
           top: 70,
           left: 0,
           child: ElevatedButton(
-              onPressed: (){
+              onPressed: () {
                 customfunction();
               },
               style: ButtonStyle(
-                  backgroundColor:
-                  MaterialStateProperty.all(Colors.black),
-                  shape: MaterialStateProperty.all(
-                      CircleBorder())),
-              child:  Icon(
+                  backgroundColor: MaterialStateProperty.all(Colors.black),
+                  shape: MaterialStateProperty.all(CircleBorder())),
+              child: Icon(
                 iconName,
                 color: Colors.white,
                 size: 20,
@@ -63,7 +62,7 @@ Container HomeBox2(String name,IconData iconName,String imagename,Function custo
   );
 }
 
-Container HomePageBox1() {
+Container HomePageBox1(BuildContext context) {
   return Container(
     width: 320,
     height: 218,
@@ -106,7 +105,14 @@ Container HomePageBox1() {
           left: 20,
           child: ElevatedButton(
             onPressed: () {
-              print("clicked");
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => AdminRoomClientScreen(
+                            floorno: '1',
+                            roomno: '101',
+                            isAdmin: false,
+                          )));
             },
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(Colors.black),
@@ -125,12 +131,12 @@ Container HomePageBox1() {
   );
 }
 
-SizedBox HomePageUsage(String name, IconData iconname, Function customfunction, [double height = 90]) {
+SizedBox HomePageUsage(String name, IconData iconname, Function customfunction,
+    [double height = 90]) {
   return SizedBox(
     height: height,
     child: Center(
       child: ElevatedButton.icon(
-
         onPressed: () {
           customfunction();
         },
@@ -174,10 +180,10 @@ Row HomePageBox2Implementation() {
   );
 }
 
-Padding HomePageBox1Implementation() {
+Padding HomePageBox1Implementation(BuildContext context) {
   return Padding(
     padding: const EdgeInsets.fromLTRB(20, 10, 0, 10),
-    child: HomePageBox1(),
+    child: HomePageBox1(context),
   );
 }
 
@@ -195,13 +201,13 @@ Padding HomePageOtherHeading(BuildContext context) {
         TextButton(
           onPressed: () {
             // Add your onPressed function here
-            Navigator.push(context, MaterialPageRoute(builder: (context)=> ViewAllPage()));
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => ViewAllPage()));
           },
           child: const Text(
             "View All",
             style: TextStyle(
-                fontSize: 16,
-                color: Colors.blue), // Customize the color
+                fontSize: 16, color: Colors.blue), // Customize the color
           ),
         ),
       ],
@@ -210,21 +216,23 @@ Padding HomePageOtherHeading(BuildContext context) {
 }
 
 Expanded HomePageOtherthings(BuildContext context) {
-  return Expanded(  // Ensure that this Expanded is around the entire scrollable area
+  return Expanded(
+    // Ensure that this Expanded is around the entire scrollable area
     child: SingleChildScrollView(
       child: Column(
         children: [
           HomePageUsage("Amenities", Icons.sensors, () {
-            Navigator.push(context, MaterialPageRoute(builder: (context)=> AmenitiesScreen()));
-          },50),
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => AmenitiesScreen()));
+          }, 50),
           SH10,
           HomePageUsage("Room Cleaning", Icons.cleaning_services, () {
             print("navigate to cleaning service");
-          },50),
+          }, 50),
           SH10,
           HomePageUsage("Announcements", Icons.announcement, () {
             print("navigate to announcement service");
-          },50),
+          }, 50),
         ],
       ),
     ),
@@ -236,26 +244,23 @@ Drawer HomeDrawer(BuildContext context) {
     width: 260,
     backgroundColor: CustomColors.primary1,
     child: Column(
-
       children: [
         // Drawer Header
         DrawerHeader(
-
           child: Column(
-
             children: [
               Expanded(
                 child: CircleAvatar(
                   maxRadius: 90,
                   minRadius: 60,
-                  child: Image.asset('$IMG_DIR/homeimg1.png',
+                  child: Image.asset(
+                    '$IMG_DIR/homeimg1.png',
                     width: 220,
                     height: 220,
                   ),
                 ),
               ),
               // const SizedBox(height: 10),
-
             ],
           ),
         ),
@@ -284,7 +289,8 @@ Drawer HomeDrawer(BuildContext context) {
                 title: Text("Admin", style: TextStyle(color: Colors.white)),
                 onTap: () {
                   // Handle navigation to About
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => AdminScreen()));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => AdminScreen()));
                 },
               ),
               ListTile(

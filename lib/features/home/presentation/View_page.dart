@@ -4,6 +4,7 @@ import 'package:pgapp/core/constants/constants.dart';
 import 'package:pgapp/features/complaints/presentation/ComplaintScreen.dart';
 import 'package:pgapp/features/home/presentation/widgets/HomePageWidgets.dart';
 
+import '../../admin/presentation/AdminRoomClient_Page.dart';
 import '../../amenitites/presentation/Amenities_Page.dart';
 import '../model/HomePageModel.dart';
 
@@ -46,7 +47,12 @@ class ViewAllPage extends StatelessWidget {
         name: "Roomates",
         icon: Icons.person_add_alt_rounded,
         onPressed: () {
-          print("navigate to cleaning service");
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      AdminRoomClientScreen(floorno: '1', roomno: '101',
+                      isAdmin: false,)));
         },
       ),
       HomePageItem(
