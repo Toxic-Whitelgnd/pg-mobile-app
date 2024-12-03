@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pgapp/features/admin/presentation/ClientHistory_Page.dart';
 
 import '../../../core/constants/constants.dart';
 import '../../amenitites/presentation/Amenities_Page.dart';
@@ -35,6 +36,10 @@ class _AdminScreenState extends State<AdminScreen> {
           SH10,
           HomePageUsage("Rooms", Icons.remove_red_eye, () {
             Navigator.push(context, MaterialPageRoute(builder: (context)=> const AdminClientViewScreen()));
+          },50),
+          SH10,
+          HomePageUsage("History", Icons.history, (){
+            Navigator.push(context, MaterialPageRoute(builder: (context)=> const ClientHistoryScreen()));
           },50),
           SH10,
         ],

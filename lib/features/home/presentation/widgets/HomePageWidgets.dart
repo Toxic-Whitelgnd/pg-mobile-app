@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:pgapp/features/admin/presentation/AdminRoomClient_Page.dart';
 import 'package:pgapp/features/admin/presentation/Admin_Page.dart';
 import 'package:pgapp/features/amenitites/presentation/Amenities_Page.dart';
+import 'package:pgapp/features/roomcleaning/presentation/RoomCleaning_Page.dart';
 
 import '../../../../core/constants/ColorConstants.dart';
 import '../../../../core/constants/constants.dart';
+import '../../../food/presentation/FoodMenu_page.dart';
 import '../View_page.dart';
 
 Container HomeBox2(
@@ -161,13 +163,13 @@ SizedBox HomePageUsage(String name, IconData iconname, Function customfunction,
   );
 }
 
-Row HomePageBox2Implementation() {
+Row HomePageBox2Implementation(BuildContext context) {
   return Row(
     children: [
       Padding(
         padding: const EdgeInsets.all(20),
         child: HomeBox2("Menu", Icons.fastfood, "homeimg2", () {
-          print("custom function for menu");
+          Navigator.push(context, MaterialPageRoute(builder: (context)=> FoodMenuScreen()));
         }),
       ),
       Padding(
@@ -227,7 +229,7 @@ Expanded HomePageOtherthings(BuildContext context) {
           }, 50),
           SH10,
           HomePageUsage("Room Cleaning", Icons.cleaning_services, () {
-            print("navigate to cleaning service");
+            Navigator.push(context, MaterialPageRoute(builder: (context)=> RoomCleaningScreen()));
           }, 50),
           SH10,
           HomePageUsage("Announcements", Icons.announcement, () {

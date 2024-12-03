@@ -182,6 +182,16 @@ class MongoDBService {
 
   //Addcleint end
 
+  Future<List<Map<String,dynamic>>> getClientHistory() async{
+    try{
+      var res = await _clientHistoryCollection.find();
+      return res.toList();
+    }catch(e){
+      print("Failed to fetch from the history $e");
+      return [];
+    }
+  }
+
 
 
   Future<void> close() async {

@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:pgapp/core/constants/constants.dart';
 import 'package:pgapp/features/complaints/presentation/ComplaintScreen.dart';
 import 'package:pgapp/features/home/presentation/widgets/HomePageWidgets.dart';
+import 'package:pgapp/features/roomcleaning/presentation/RoomCleaning_Page.dart';
 
 import '../../admin/presentation/AdminRoomClient_Page.dart';
 import '../../amenitites/presentation/Amenities_Page.dart';
+import '../../food/presentation/FoodMenu_page.dart';
 import '../model/HomePageModel.dart';
 
 class ViewAllPage extends StatelessWidget {
@@ -25,7 +27,7 @@ class ViewAllPage extends StatelessWidget {
         name: "Room Cleaning",
         icon: Icons.cleaning_services,
         onPressed: () {
-          print("navigate to cleaning service");
+          Navigator.push(context, MaterialPageRoute(builder: (context) => RoomCleaningScreen()));
         },
       ),
 
@@ -40,7 +42,7 @@ class ViewAllPage extends StatelessWidget {
         name: "Food Menu",
         icon: Icons.fastfood_rounded,
         onPressed: () {
-          print("navigate to cleaning service");
+          Navigator.push(context, MaterialPageRoute(builder: (context)=> FoodMenuScreen()));
         },
       ),
       HomePageItem(
