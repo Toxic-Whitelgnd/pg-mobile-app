@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:pgapp/core/constants/constants.dart';
+import 'package:pgapp/di/locator.dart';
 import 'package:pgapp/features/roomcleaning/model/RoomCleanServiceModel.dart';
 import 'package:pgapp/services/MongoDB.dart';
+import 'package:pgapp/services/dataService/roomCleaningService.dart';
 
 import '../../roomcleaning/model/RoomCleaningModel.dart';
 
@@ -17,7 +19,10 @@ class RoomCleaningAdminScreen extends StatefulWidget {
 }
 
 class _RoomCleaningAdminScreenState extends State<RoomCleaningAdminScreen> {
-  MongoDBService _mongoDBService = new MongoDBService();
+
+  //Using throug DI
+  final RoomCleaningService _roomCleanService = locator<RoomCleaningService>();
+
   RoomCleanService rs = new RoomCleanService();
 
   List<RoomCleaning>? fromDb;
@@ -69,7 +74,7 @@ class _RoomCleaningAdminScreenState extends State<RoomCleaningAdminScreen> {
     setState(() {
       isloading = true;
     });
-    var res = await _mongoDBService.fetchRoomCleanings();
+    var res = await _roomCleanService.fetchRoomCleanings();
     if(res.isNotEmpty){
 
       setState(() {
@@ -113,7 +118,7 @@ class _RoomCleaningAdminScreenState extends State<RoomCleaningAdminScreen> {
 
     final res = rs.getRoomClean();
 
-    _mongoDBService.saveRoomCleaning(res);
+    _roomCleanService.saveRoomCleaning(res);
     super.dispose();
   }
 

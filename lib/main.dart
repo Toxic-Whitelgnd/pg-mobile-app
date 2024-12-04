@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:pgapp/di/locator.dart';
 import 'package:pgapp/features/home/presentation/Home_page.dart';
 import 'package:pgapp/services/MongoDB.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  MongoDBService _mongoService = MongoDBService();
-  await _mongoService.connect();
+  // Initialize the DI
+  await setupLocator();
+
   runApp(const MyApp());
 }
 

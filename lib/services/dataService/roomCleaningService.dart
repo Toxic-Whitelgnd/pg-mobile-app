@@ -3,9 +3,9 @@ import 'package:pgapp/services/MongoDB.dart';
 import '../../features/roomcleaning/model/RoomCleaningModel.dart';
 
 class RoomCleaningService{
-  MongoDBService _mongoDBService = new MongoDBService();
+  final MongoDBService _mongoDBService;
 
-  RoomCleaningService();
+  RoomCleaningService(this._mongoDBService);
 
   Future<void> initialize() async {
     // Ensure MongoDB connection is established before performing any operations

@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:pgapp/core/constants/constants.dart';
+import 'package:pgapp/di/locator.dart';
 import 'package:pgapp/features/roomcleaning/model/RoomCleanServiceModel.dart';
 import 'package:pgapp/features/roomcleaning/model/RoomCleaningModel.dart';
 import 'package:pgapp/services/MongoDB.dart';
+import 'package:pgapp/services/dataService/roomCleaningService.dart';
 
 class RoomCleaningScreen extends StatefulWidget {
   const RoomCleaningScreen({super.key});
@@ -18,6 +20,7 @@ class _RoomCleaningScreenState extends State<RoomCleaningScreen> {
   RoomCleanService rs = new RoomCleanService();
 
   MongoDBService _mongoDBService = new MongoDBService();
+  final RoomCleaningService _roomCleaningService = locator<RoomCleaningService>();
 
   List<RoomCleaning>? roomcleanDetails;
   String mondayDate = '';
@@ -52,7 +55,7 @@ class _RoomCleaningScreenState extends State<RoomCleaningScreen> {
     setState(() {
       isloading = true;
     });
-    var res = await _mongoDBService.fetchRoomCleanings();
+    var res = await _roomCleaningService.fetchRoomCleanings();
     if(res.isNotEmpty){
 
       setState(() {
