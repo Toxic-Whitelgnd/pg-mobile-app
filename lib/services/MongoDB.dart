@@ -2,6 +2,7 @@ import 'dart:ffi';
 
 import 'package:mongo_dart/mongo_dart.dart';
 import 'package:pgapp/features/complaints/model/ComplaintModel.dart';
+import 'package:pgapp/features/roomcleaning/model/RoomCleaningModel.dart';
 
 import '../core/constants/DatabaseConstants.dart';
 import '../features/admin/model/ClientModel.dart';
@@ -14,6 +15,7 @@ class MongoDBService {
   late DbCollection _complaintCollection;
   late DbCollection _clientCollection;
   late DbCollection _clientHistoryCollection;
+  late DbCollection _roomCleaningCollection;
 
   // Private constructor for singleton
   MongoDBService._internal();
@@ -33,6 +35,7 @@ class MongoDBService {
       _complaintCollection = _db.collection(MONGO_COMPLAINTS_COLLECTION);
       _clientCollection = _db.collection(MONGO_CLIENT_COLLECTION);
       _clientHistoryCollection = _db.collection(MONGO_CLIENTHistory_COLLECTION);
+      _roomCleaningCollection = _db.collection(MONGO_ROOMCLEANING_COLLECTION);
     } catch (e) {
       print("Error while connecting to MongoDB: $e");
     }
@@ -42,6 +45,7 @@ class MongoDBService {
   DbCollection get complaintCollection => _complaintCollection;
   DbCollection get clientCollection => _clientCollection;
   DbCollection get clientHistoryCollection => _clientHistoryCollection;
+  DbCollection get roomCleaningCollection => _roomCleaningCollection;
 
   //Amenities Start
   Future<void> insertAmenitiesData(Map<String, dynamic> data) async {
@@ -182,6 +186,7 @@ class MongoDBService {
 
   //Addcleint end
 
+  //CleintHistory Start
   Future<List<Map<String,dynamic>>> getClientHistory() async{
     try{
       var res = await _clientHistoryCollection.find();
@@ -192,6 +197,57 @@ class MongoDBService {
     }
   }
 
+  //ClintHistory END
+
+  //RoomCleaningService Start
+  Future<void> saveRoomCleaning(List<RoomCleaning> roomcleaning) async{
+    try {
+      // Convert RoomCleaning objects to maps
+      List<Map<String, dynamic>> roomCleaningsMap =
+      roomcleaning.map((roomCleaning) => roomCleaning.toMap()).toList();
+
+      for (var roomCleaningMap in roomCleaningsMap) {
+        String day = roomCleaningMap['day']; // The unique identifier (e.g., 'day')
+
+        // Update the document in MongoDB
+        var res = await _roomCleaningCollection.updateOne(
+          {'day': day}, // Filter condition (match documents by 'day')
+          {
+            '\$set': roomCleaningMap, // Fields to update
+          },
+        );
+
+        // if (res.nModified == 0) {
+        //   // If no document matched, you can insert a new one (insert if not found)
+        //   await _roomCleaningCollection.insertOne(roomCleaningMap);
+        //   print("RoomCleaning for $day was not found, inserted as new");
+        // } else {
+        //   print("RoomCleaning for $day has been updated");
+        // }
+
+      }
+    } catch (e) {
+      print("Error updating RoomCleaning: $e");
+    }
+  }
+
+  Future<List<RoomCleaning>> fetchRoomCleanings() async {
+    try {
+      var result = await _roomCleaningCollection.find().toList();
+      List<RoomCleaning> cleanings = result.map((e) =>
+          RoomCleaning(
+            e['day'],
+            e['isCleaned'],
+            e['lastUpdated'] ?? 'Not Updated',
+          )).toList();
+      return cleanings;
+    } catch (e) {
+      print("Error fetching RoomCleanings: $e");
+      return [];
+    }
+  }
+
+  //RoomCleaningService END
 
 
   Future<void> close() async {

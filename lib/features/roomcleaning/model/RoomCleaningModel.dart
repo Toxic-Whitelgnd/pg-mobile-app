@@ -3,11 +3,11 @@ class RoomCleaning{
   late bool isCleaned;
   String lastUpdated = '';
 
-  RoomCleaning(this.day, this.isCleaned);
+  RoomCleaning(this.day, this.isCleaned, [this.lastUpdated = '']);
 
   @override
   String toString() {
-    return 'RoomCleaning{day: $day, isCleaned: $isCleaned}';
+    return 'RoomCleaning{day: $day, isCleaned: $isCleaned}, lastUpdated: $lastUpdated';
   }
 
   Map<String,dynamic> toMap(){

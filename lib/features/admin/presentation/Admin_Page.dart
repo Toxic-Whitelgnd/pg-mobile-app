@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pgapp/features/admin/presentation/CleaningServiceAdmin_Page.dart';
 import 'package:pgapp/features/admin/presentation/ClientHistory_Page.dart';
 
 import '../../../core/constants/constants.dart';
@@ -42,6 +43,10 @@ class _AdminScreenState extends State<AdminScreen> {
             Navigator.push(context, MaterialPageRoute(builder: (context)=> const ClientHistoryScreen()));
           },50),
           SH10,
+          HomePageUsage("RoomCleaning", Icons.cleaning_services, (){
+            Navigator.push(context, MaterialPageRoute(builder: (context)=> const RoomCleaningAdminScreen()));
+          },50),
+
         ],
       ),
     );

@@ -3,3 +3,4 @@ const MONGO_AMENITIES_COLLECTION = "amenities";
 const MONGO_COMPLAINTS_COLLECTION = "complaints";
 const MONGO_CLIENT_COLLECTION = "client";
 const MONGO_CLIENTHistory_COLLECTION = "clientHistory";
+const MONGO_ROOMCLEANING_COLLECTION = "roomcleaning";

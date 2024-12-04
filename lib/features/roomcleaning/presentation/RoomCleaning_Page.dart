@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:pgapp/core/constants/constants.dart';
 import 'package:pgapp/features/roomcleaning/model/RoomCleanServiceModel.dart';
 import 'package:pgapp/features/roomcleaning/model/RoomCleaningModel.dart';
+import 'package:pgapp/services/MongoDB.dart';
 
 class RoomCleaningScreen extends StatefulWidget {
   const RoomCleaningScreen({super.key});
@@ -15,27 +17,13 @@ class RoomCleaningScreen extends StatefulWidget {
 class _RoomCleaningScreenState extends State<RoomCleaningScreen> {
   RoomCleanService rs = new RoomCleanService();
 
+  MongoDBService _mongoDBService = new MongoDBService();
+
   List<RoomCleaning>? roomcleanDetails;
   String mondayDate = '';
   String sundayDate = '';
 
-  void _AddtoRoomService() {
-    RoomCleaning mon = RoomCleaning('Monday', true);
-    RoomCleaning fri = RoomCleaning('Friday', true);
-    RoomCleaning sat = RoomCleaning('Saturday', true);
-    RoomCleaning tue = RoomCleaning('Tuesday', false);
-    RoomCleaning wed = RoomCleaning('Wednesday', true);
-    RoomCleaning thu = RoomCleaning('Thursday', false);
-    RoomCleaning sun = RoomCleaning('Sunday', false);
-
-    rs.addToRoomClean(mon);
-    rs.addToRoomClean(tue);
-    rs.addToRoomClean(wed);
-    rs.addToRoomClean(thu);
-    rs.addToRoomClean(fri);
-    rs.addToRoomClean(sat);
-    rs.addToRoomClean(sun);
-  }
+  bool isloading = false;
 
   void _getAndAssign() {
     var res = rs.getRoomClean();
@@ -60,29 +48,47 @@ class _RoomCleaningScreenState extends State<RoomCleaningScreen> {
     setState(() {});
   }
 
+  Future<void> _fetchRoomCleaning() async{
+    setState(() {
+      isloading = true;
+    });
+    var res = await _mongoDBService.fetchRoomCleanings();
+    if(res.isNotEmpty){
+
+      setState(() {
+        roomcleanDetails = res;
+        isloading = false;
+      });
+    }
+  }
+
   @override
   void initState() {
     super.initState();
-    _AddtoRoomService();
+    _fetchRoomCleaning();
     _getAndAssign();
     _getCurrentWeekDates();
+
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Room Cleaning \n $mondayDate - $sundayDate"),
-        centerTitle: true,
+    return ModalProgressHUD(
+      inAsyncCall: isloading,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text("Room Cleaning \n $mondayDate - $sundayDate"),
+          centerTitle: true,
+        ),
+        body: Padding(
+            padding: EdgeInsets.all(12),
+            child: ListView.builder(
+                itemCount: roomcleanDetails!.length,
+                itemBuilder: (context, index) {
+                  final item = roomcleanDetails![index];
+                  return RoomCleaningCard(item);
+                })),
       ),
-      body: Padding(
-          padding: EdgeInsets.all(12),
-          child: ListView.builder(
-              itemCount: roomcleanDetails!.length,
-              itemBuilder: (context, index) {
-                final item = roomcleanDetails![index];
-                return RoomCleaningCard(item);
-              })),
     );
   }
 
