@@ -6,15 +6,17 @@ class RoomCleanService {
   DateTime? lastResetDate;
 
   void addToRoomClean(RoomCleaning r) {
-    _checkAndResetList();
-    DateTime now = DateTime.now();
-    var lastUpdt = DateFormat('MMM d').format(now);
-    r.lastUpdated = lastUpdt;
+    // _checkAndResetList();
+    if(r.isCleaned){
+      DateTime now = DateTime.now();
+      var lastUpdt = DateFormat('MMM d').format(now);
+      r.lastUpdated = lastUpdt;
+    }
     roomCleaned.add(r);
   }
 
   List<RoomCleaning> getRoomClean() {
-    _checkAndResetList();
+    // _checkAndResetList();
     return roomCleaned;
   }
 
