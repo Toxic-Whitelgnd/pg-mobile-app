@@ -29,6 +29,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
-// TODO: Admin Page for room cleaning , food menu
+// TODO: food menu, Github actions - sonarcloud connections
+// TODO: GHEE MODIFICATIONS REQUIRED - TODAY NIGHT
 
 

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pgapp/features/admin/presentation/CleaningServiceAdmin_Page.dart';
 import 'package:pgapp/features/admin/presentation/ClientHistory_Page.dart';
+import 'package:pgapp/features/admin/presentation/FoodAdmin.dart';
 
 import '../../../core/constants/constants.dart';
 import '../../amenitites/presentation/Amenities_Page.dart';
@@ -45,6 +46,10 @@ class _AdminScreenState extends State<AdminScreen> {
           SH10,
           HomePageUsage("RoomCleaning", Icons.cleaning_services, (){
             Navigator.push(context, MaterialPageRoute(builder: (context)=> const RoomCleaningAdminScreen()));
+          },50),
+          SH10,
+          HomePageUsage("Food", Icons.fastfood_sharp, (){
+            Navigator.push(context, MaterialPageRoute(builder: (context)=> const FoodAdminScreen()));
           },50),
 
         ],
