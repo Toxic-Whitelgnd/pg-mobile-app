@@ -5,10 +5,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:pgapp/features/admin/presentation/AdminEditClientDetails.dart';
-import 'package:pgapp/services/MongoDB.dart';
 
 import '../../../core/constants/ColorConstants.dart';
 import '../../../core/constants/constants.dart';
+import '../../../di/locator.dart';
+import '../../../services/dataService/clientService.dart';
 import '../utils/adminConstants.dart';
 
 class AdminRoomClientScreen extends StatefulWidget {
@@ -26,7 +27,8 @@ class AdminRoomClientScreen extends StatefulWidget {
 }
 
 class _AdminRoomClientScreenState extends State<AdminRoomClientScreen> {
-  MongoDBService _mongoDBService = new MongoDBService();
+
+  final ClientService _clientService = locator<ClientService>();
 
   bool isLoading = false;
 
@@ -42,7 +44,7 @@ class _AdminRoomClientScreenState extends State<AdminRoomClientScreen> {
     setState(() {
       isLoading = true;
     });
-    var res = await _mongoDBService.getClient(widget.floorno, widget.roomno);
+    var res = await _clientService.getClient(widget.floorno, widget.roomno);
     if (res.isNotEmpty) {
       roomMembers = res;
     }
@@ -58,7 +60,7 @@ class _AdminRoomClientScreenState extends State<AdminRoomClientScreen> {
   }
 
   Future<void> _deleteClient(Map<String,dynamic> client) async{
-    bool res = await _mongoDBService.deleteClient(client);
+    bool res = await _clientService.deleteClient(client);
     if(res){
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text("Client Deleted Successfully"),

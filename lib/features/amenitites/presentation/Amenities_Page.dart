@@ -4,7 +4,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:pgapp/core/constants/ColorConstants.dart';
+import 'package:pgapp/di/locator.dart';
 import 'package:pgapp/services/MongoDB.dart';
+import 'package:pgapp/services/dataService/amenitieService.dart';
 
 class AmenitiesScreen extends StatefulWidget {
   const AmenitiesScreen({super.key});
@@ -14,7 +16,7 @@ class AmenitiesScreen extends StatefulWidget {
 }
 
 class _AmenitiesScreenState extends State<AmenitiesScreen> {
-  final MongoDBService _mongoService = MongoDBService();
+  final AmenityService _amenityService = locator<AmenityService>();
 
   @override
   void initState() {
@@ -57,7 +59,7 @@ class _AmenitiesScreenState extends State<AmenitiesScreen> {
           ),
           ElevatedButton(
             onPressed: () {
-              _mongoService.getAmenitiesData();
+              _amenityService.getAmenitiesData();
             },
             child: Text("Click to get"),
           ),

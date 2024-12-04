@@ -3,7 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:pgapp/core/constants/ColorConstants.dart';
+import 'package:pgapp/di/locator.dart';
 import 'package:pgapp/services/MongoDB.dart';
+import 'package:pgapp/services/dataService/complaintService.dart';
 
 class AdminComplaintsPage extends StatefulWidget {
   const AdminComplaintsPage({super.key});
@@ -13,7 +15,8 @@ class AdminComplaintsPage extends StatefulWidget {
 }
 
 class _AdminComplaintsPageState extends State<AdminComplaintsPage> {
-  final MongoDBService _mongoDBService = MongoDBService();
+  final ComplaintService _complaintService = locator<ComplaintService>();
+
   List<Map<String, dynamic>>? complaints;
   bool isLoading = true;
 
@@ -36,7 +39,7 @@ class _AdminComplaintsPageState extends State<AdminComplaintsPage> {
 
   Future<void> getComplaintData() async {
     try {
-      complaints = await _mongoDBService.getComplaints();
+      complaints = await _complaintService.getComplaints();
       filteredComplaints = complaints;
     } catch (e) {
       print("Error fetching complaints: $e");
@@ -83,7 +86,7 @@ class _AdminComplaintsPageState extends State<AdminComplaintsPage> {
 
   Future<void> changeStatus(ObjectId id) async {
     //make call to db
-    bool res = await _mongoDBService.changeStatus(id);
+    bool res = await _complaintService.changeStatus(id);
     if(res){
       setState(() {
         getComplaintData();

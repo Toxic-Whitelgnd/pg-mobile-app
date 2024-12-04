@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pgapp/services/MongoDB.dart';
 
+import '../../../di/locator.dart';
+import '../../../services/dataService/complaintService.dart';
 import '../model/ComplaintModel.dart';
 
 class ComplaintScreen extends StatefulWidget {
@@ -16,7 +18,7 @@ class _ComplaintScreenState extends State<ComplaintScreen> {
   final TextEditingController _multiLineController = TextEditingController();
   DateTime currentDateTime = DateTime.now();
 
-  MongoDBService _mongoDBService = MongoDBService();
+  final ComplaintService _complaintService = locator<ComplaintService>();
 
   String _roomNo = "";
   String _complaint = "";
@@ -57,7 +59,7 @@ class _ComplaintScreenState extends State<ComplaintScreen> {
 
     print(complaintModel.toString());
     //make a call to the mongodb service
-    bool res = await _mongoDBService.postRaiseComplaints(complaintModel);
+    bool res = await _complaintService.postRaiseComplaints(complaintModel);
     if(res){
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(

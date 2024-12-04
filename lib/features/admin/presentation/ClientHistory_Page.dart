@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
+import 'package:pgapp/di/locator.dart';
 import 'package:pgapp/services/MongoDB.dart';
+import 'package:pgapp/services/dataService/clientHistoryService.dart';
 
 class ClientHistoryScreen extends StatefulWidget {
   const ClientHistoryScreen({super.key});
@@ -12,7 +14,8 @@ class ClientHistoryScreen extends StatefulWidget {
 }
 
 class _ClientHistoryScreenState extends State<ClientHistoryScreen> {
-  MongoDBService _mongoDBService = new MongoDBService();
+
+  final ClientHistoryService _clientHistoryService = locator<ClientHistoryService>();
 
   String _selectedCriteria = 'name';
   String _searchQuery = '';
@@ -102,7 +105,7 @@ class _ClientHistoryScreenState extends State<ClientHistoryScreen> {
   }
 
   Future<void> _sendToServer() async {
-    var res = await _mongoDBService.getClientHistory();
+    var res = await _clientHistoryService.getClientHistory();
     if (res.isNotEmpty) {
       setState(() {
         clientHistory = res;

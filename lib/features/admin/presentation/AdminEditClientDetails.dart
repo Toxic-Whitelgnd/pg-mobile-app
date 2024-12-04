@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pgapp/services/MongoDB.dart';
 
+import '../../../di/locator.dart';
+import '../../../services/dataService/clientService.dart';
 import '../utils/adminConstants.dart';
 
 class AdminEditClientScreen extends StatefulWidget {
@@ -13,6 +15,8 @@ class AdminEditClientScreen extends StatefulWidget {
 }
 
 class _AdminEditClientScreenState extends State<AdminEditClientScreen> {
+
+  final ClientService _clientService = locator<ClientService>();
 
   late final TextEditingController nameController;
   late final TextEditingController adharnoController;
@@ -94,7 +98,7 @@ class _AdminEditClientScreenState extends State<AdminEditClientScreen> {
     // Save logic (e.g., API call)
     print("Updated Client Details: $updatedClient");
 
-    bool res = await _mongoDBService.updateClient(updatedClient);
+    bool res = await _clientService.updateClient(updatedClient);
     if(res){
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text("Client updated Successfully"),

@@ -6,8 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:pgapp/di/locator.dart';
 import 'package:pgapp/features/admin/model/ClientModel.dart';
 import 'package:pgapp/services/MongoDB.dart';
+import 'package:pgapp/services/dataService/clientService.dart';
 
 import '../utils/adminConstants.dart';
 
@@ -20,6 +22,7 @@ class AdminAddClientScreen extends StatefulWidget {
 
 class _AdminAddClientScreenState extends State<AdminAddClientScreen> {
 
+  final ClientService _clientService = locator<ClientService>();
 
   String _selectedFloor = floors.first;
   String _selectedRoom = floor1.first;
@@ -36,8 +39,6 @@ class _AdminAddClientScreenState extends State<AdminAddClientScreen> {
   final TextEditingController _dob = TextEditingController();
   final TextEditingController _rent = TextEditingController();
   final TextEditingController _doj = TextEditingController();
-
-  MongoDBService _mongoDBService = new MongoDBService();
 
   // New fields for image picker
   File? _selectedImage;
@@ -121,7 +122,7 @@ class _AdminAddClientScreenState extends State<AdminAddClientScreen> {
     );
 
     print(cm.toString());
-    bool res = await _mongoDBService.addClient(cm);
+    bool res = await _clientService.addClient(cm);
     if (res) {
 
       ScaffoldMessenger.of(context).showSnackBar(
