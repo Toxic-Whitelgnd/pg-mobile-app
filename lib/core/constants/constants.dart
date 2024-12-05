@@ -7,4 +7,8 @@ const SizedBox SH10 = SizedBox(
   height: 10,
 );
 
+const SizedBox SH30 = SizedBox(
+  height: 30,
+);
+
 

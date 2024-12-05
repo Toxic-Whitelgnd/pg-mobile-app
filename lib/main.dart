@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:pgapp/di/locator.dart';
 import 'package:pgapp/features/home/presentation/Home_page.dart';
 import 'package:pgapp/services/MongoDB.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load(fileName: '.env');
   // Initialize the DI
   await setupLocator();
 
@@ -18,7 +20,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'PG App',
       theme: ThemeData(
 
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
@@ -28,8 +30,5 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-// TODO: food menu, Github actions - sonarcloud connections
-// TODO: GHEE MODIFICATIONS REQUIRED - TODAY NIGHT
 
 

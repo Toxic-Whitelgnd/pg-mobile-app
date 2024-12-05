@@ -46,9 +46,18 @@ Padding MenuCard(FoodMenu f) {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Text('Morning: ${f.session1}'),
-              Text('Afternoon: ${f.session2}'),
-              Text('Night: ${f.session3}'),
+              Text('Morning: ${f.session1}',
+              style: TextStyle(
+                fontWeight: FontWeight.bold
+              ),),
+              Text('Afternoon: ${f.session2}',
+                style: TextStyle(
+                    fontWeight: FontWeight.bold
+                ),),
+              Text('Night: ${f.session3}',
+                style: TextStyle(
+                    fontWeight: FontWeight.bold
+                ),),
             ],
           ),
         ),
