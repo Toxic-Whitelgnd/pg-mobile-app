@@ -5,6 +5,8 @@ import 'package:pgapp/features/food/model/FoodMenuModel.dart';
 import 'package:pgapp/features/food/model/FoodModel.dart';
 
 import '../../../core/constants/constants.dart';
+import '../../../di/locator.dart';
+import '../../../services/dataService/foodService.dart';
 import '../utils/FoodMenuUtils.dart';
 
 class FoodMenuScreen extends StatefulWidget {
@@ -15,61 +17,22 @@ class FoodMenuScreen extends StatefulWidget {
 }
 
 class _FoodMenuScreenState extends State<FoodMenuScreen> {
+  final FoodService _foodService = locator<FoodService>();
   List<FoodMenu>? details;
 
-  final Food _f1 = Food();
+  Future<void> _getFoodMenu() async{
+      var res = await _foodService.getFoodMenu();
+      setState(() {
+        details = res;
+      });
+  }
 
   @override
   void initState() {
     super.initState();
 
-    FoodMenu mondayMenu = FoodMenu(
-      day: 'Monday',
-      session1: 'Breakfast',
-      session2: 'Lunch',
-      session3: 'Dinner',
-      img: '$IMG_DIR/homeimg1.png',
-    );
+    _getFoodMenu();
 
-    FoodMenu tuesdayMenu = FoodMenu(
-      day: 'Tuesday',
-      session1: 'Breakfast Special',
-      session2: 'Lunch Special',
-      session3: 'Dinner Special',
-      img: '$IMG_DIR/homeimg1.png',
-    );
-
-    FoodMenu wednesdayMenu = FoodMenu(
-      day: 'Wednesday',
-      session1: 'Breakfast Special',
-      session2: 'Lunch Special',
-      session3: 'Dinner Special',
-      img: '$IMG_DIR/homeimg1.png',
-    );
-    FoodMenu thursdayMenu = FoodMenu(
-      day: 'Thursday',
-      session1: 'Breakfast Special',
-      session2: 'Lunch Special',
-      session3: 'Dinner Special',
-      img: '$IMG_DIR/homeimg1.png',
-    );
-
-    FoodMenu fridayMenu = FoodMenu(
-      day: 'Friday',
-      session1: 'Breakfast Special',
-      session2: 'Lunch Special',
-      session3: 'Dinner Special',
-      img: '$IMG_DIR/homeimg1.png',
-    );
-
-
-    _f1.addToMenu(mondayMenu);
-    _f1.addToMenu(tuesdayMenu);
-    _f1.addToMenu(wednesdayMenu);
-    _f1.addToMenu(thursdayMenu);
-    _f1.addToMenu(fridayMenu);
-
-    details = _f1.getMenus();
   }
 
   @override
