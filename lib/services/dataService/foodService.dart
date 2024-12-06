@@ -11,7 +11,6 @@ class FoodService {
   Future<bool> addFoodItems(List<FoodMenu> foodMenus) async {
     try {
       for(var f in foodMenus){
-        print(f.toMap());
 
         var existingEntry = await _mongoDBService.foodMenuCollection.findOne({'day': f.day});
 

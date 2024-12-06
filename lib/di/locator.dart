@@ -1,6 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:pgapp/services/MongoDB.dart';
 import 'package:pgapp/services/dataService/amenitieService.dart';
+import 'package:pgapp/services/dataService/annoucementService.dart';
 import 'package:pgapp/services/dataService/clientHistoryService.dart';
 import 'package:pgapp/services/dataService/clientService.dart';
 import 'package:pgapp/services/dataService/complaintService.dart';
@@ -38,7 +39,11 @@ Future<void> setupLocator() async{
     AmenityService(locator<MongoDBService>()),
   );
 
-  locator.registerSingleton(
+  locator.registerSingleton<FoodService>(
     FoodService(locator<MongoDBService>()),
+  );
+  
+  locator.registerSingleton<AnnoucementService>(
+    AnnoucementService(locator<MongoDBService>()),
   );
 }

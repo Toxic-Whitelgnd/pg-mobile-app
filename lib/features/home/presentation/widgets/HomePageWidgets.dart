@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:pgapp/features/admin/presentation/AdminRoomClient_Page.dart';
 import 'package:pgapp/features/admin/presentation/Admin_Page.dart';
 import 'package:pgapp/features/amenitites/presentation/Amenities_Page.dart';
+import 'package:pgapp/features/annoucement/presentation/AnnoucementLog_Page.dart';
 import 'package:pgapp/features/roomcleaning/presentation/RoomCleaning_Page.dart';
 
 import '../../../../core/constants/ColorConstants.dart';
 import '../../../../core/constants/constants.dart';
+import '../../../complaints/presentation/ComplaintScreen.dart';
 import '../../../food/presentation/FoodMenu_page.dart';
 import '../View_page.dart';
 
@@ -175,7 +177,7 @@ Row HomePageBox2Implementation(BuildContext context) {
       Padding(
         padding: EdgeInsets.all(0),
         child: HomeBox2("Tickets", Icons.support_agent, "homeimg3", () {
-          print("custom function for tickets");
+          Navigator.push(context, MaterialPageRoute(builder: (context) => ComplaintScreen()));
         }),
       ),
     ],
@@ -232,8 +234,8 @@ Expanded HomePageOtherthings(BuildContext context) {
             Navigator.push(context, MaterialPageRoute(builder: (context)=> RoomCleaningScreen()));
           }, 50),
           SH10,
-          HomePageUsage("Announcements", Icons.announcement, () {
-            print("navigate to announcement service");
+          HomePageUsage("Pay rent", Icons.attach_money, () {
+            Navigator.push(context, MaterialPageRoute(builder: (context)=> AnnoucementLogScreen(isAdmin: false)));
           }, 50),
         ],
       ),

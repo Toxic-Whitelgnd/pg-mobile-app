@@ -18,6 +18,7 @@ class MongoDBService {
   late DbCollection _clientHistoryCollection;
   late DbCollection _roomCleaningCollection;
   late DbCollection _foodmenuCollection;
+  late DbCollection _announcementColelction;
 
   // Private constructor for singleton
   MongoDBService._internal();
@@ -40,6 +41,7 @@ class MongoDBService {
       _clientHistoryCollection = _db.collection(MONGO_CLIENTHISTORY_COLLECTION);
       _roomCleaningCollection = _db.collection(MONGO_ROOMCLEANING_COLLECTION);
       _foodmenuCollection = _db.collection(MONGO_FOODMENU_COLLECTION);
+      _announcementColelction = _db.collection(MONGO_ANNOUCMENT_COLLECTION);
 
       //End of Initaliztion
 
@@ -54,6 +56,7 @@ class MongoDBService {
   DbCollection get clientHistoryCollection => _clientHistoryCollection;
   DbCollection get roomCleaningCollection => _roomCleaningCollection;
   DbCollection get foodMenuCollection => _foodmenuCollection;
+  DbCollection get annoucementCollection => _announcementColelction;
 
   Future<void> close() async {
     try {

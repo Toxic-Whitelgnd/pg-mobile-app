@@ -7,6 +7,7 @@ import 'package:pgapp/features/roomcleaning/presentation/RoomCleaning_Page.dart'
 
 import '../../admin/presentation/AdminRoomClient_Page.dart';
 import '../../amenitites/presentation/Amenities_Page.dart';
+import '../../annoucement/presentation/AnnoucementLog_Page.dart';
 import '../../food/presentation/FoodMenu_page.dart';
 import '../model/HomePageModel.dart';
 
@@ -35,7 +36,7 @@ class ViewAllPage extends StatelessWidget {
         name: "Announcements",
         icon: Icons.announcement_rounded,
         onPressed: () {
-          print("navigate to cleaning service");
+          Navigator.push(context, MaterialPageRoute(builder: (context)=> AnnoucementLogScreen(isAdmin: false)));
         },
       ),
       HomePageItem(

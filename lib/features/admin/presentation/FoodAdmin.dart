@@ -4,6 +4,7 @@ import 'package:pgapp/di/locator.dart';
 import 'package:pgapp/services/dataService/foodService.dart';
 
 import '../../../core/constants/constants.dart';
+import '../../../utils/Utils.dart';
 import '../../food/model/FoodMenuModel.dart';
 
 class FoodAdminScreen extends StatefulWidget {
@@ -35,10 +36,7 @@ class _FoodAdminScreenState extends State<FoodAdminScreen> {
   void sendToServer() async {
     bool res = await _foodService.addFoodItems(foodMenuDb!);
     if (res) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text("Food Menu Updated"),
-        backgroundColor: Colors.green,
-      ));
+      CustomToaster(context,"Food Menu Updated",Colors.green);
     }
   }
 
