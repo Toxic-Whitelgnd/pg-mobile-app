@@ -58,4 +58,19 @@ class AnnoucementService {
       return false;
     }
   }
+
+  Future<bool> deleteAnnocument(Annoucement a) async{
+    try{
+      var res = await _mongoDBService.annoucementCollection.findOne({'datetime':a.datetime});
+      if(res != null){
+        var res2 = await _mongoDBService.annoucementCollection.deleteOne(where.eq('datetime', a.datetime));
+        return res2.isAcknowledged;
+      }
+
+      return false;
+    }catch(e){
+      print("Failed to delete $e");
+      return false;
+    }
+  }
 }

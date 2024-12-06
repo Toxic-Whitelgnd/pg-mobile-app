@@ -1,8 +1,5 @@
-import 'dart:ui';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:pgapp/core/constants/ColorConstants.dart';
 import 'package:pgapp/di/locator.dart';
 import 'package:pgapp/features/annoucement/model/AnnoucementModel.dart';
@@ -53,6 +50,15 @@ class _AnnoucementLogScreenState extends State<AnnoucementLogScreen> {
     }
   }
 
+  void _deleteAnnoucement(Annoucement a) async{
+    bool res = await _annoucementService.deleteAnnocument(a);
+    if(res){
+      CustomToaster(context, "Annoucement Deleted Successfully", Colors.red,Colors.black87);
+    }
+    setState(() {
+      ls?.removeWhere((element) => element.datetime == a.datetime);
+    });
+  }
 
 
   @override
@@ -140,7 +146,23 @@ class _AnnoucementLogScreenState extends State<AnnoucementLogScreen> {
                     child: const Text("Edit"),
                   ),
                   const Spacer(),
-                  ElevatedButton(onPressed: () {}, child: const Text("Delete"))
+                  ElevatedButton(onPressed: () {
+                    showDialog(context: context, builder: (contex){
+                      return AlertDialog(
+                        title: Text("Deletion Confirmation"),
+                        content: Text("Are you sure you want to delete"),
+                        actions: [
+                          ElevatedButton(onPressed: (){
+                            _deleteAnnoucement(a);
+                            Navigator.pop(context);
+                          }, child: Text("Yes")),
+                          ElevatedButton(onPressed: (){
+                            Navigator.pop(context);
+                          }, child: Text("Cancel"))
+                        ],
+                      );
+                    });
+                  }, child: const Text("Delete"))
                 ],
               ),
           ],
@@ -200,16 +222,16 @@ class _AnnoucementLogScreenState extends State<AnnoucementLogScreen> {
                         Navigator.pop(context);
                       },
                       child: const Text(
-                        "save",
+                        "Save",
                       ),
                     ),
                     const Spacer(),
                     ElevatedButton(
                       onPressed: () {
-
+                        Navigator.pop(context);
                       },
                       child: const Text(
-                        "cancel",
+                        "Cancel",
                       ),
                     ),
                   ],
@@ -219,6 +241,8 @@ class _AnnoucementLogScreenState extends State<AnnoucementLogScreen> {
           );
         });
   }
+
+
 
 
 }

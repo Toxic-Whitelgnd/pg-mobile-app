@@ -28,10 +28,10 @@ class _AnnoucementScreenState extends State<AnnoucementScreen> {
         title: text, description: text2, datetime: formatedDate);
 
     //Call to server
-    _SendToServer(a);
+    _sendToServer(a);
   }
 
-  Future<void> _SendToServer(Annoucement a) async{
+  Future<void> _sendToServer(Annoucement a) async{
 
     bool res = await _annoucementService.addToAnnoucementList(a);
     if(res){
@@ -149,10 +149,10 @@ class _AnnoucementScreenState extends State<AnnoucementScreen> {
                               Spacer(),
                               ElevatedButton(
                                 onPressed: () {
-
+                                    Navigator.of(context).pop();
                                 },
                                 child: const Text(
-                                  "cancel",
+                                  "Cancel",
                                 ),
                               ),
                             ],
