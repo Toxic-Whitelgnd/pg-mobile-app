@@ -10,6 +10,7 @@ import '../../../../core/constants/ColorConstants.dart';
 import '../../../../core/constants/constants.dart';
 import '../../../complaints/presentation/ComplaintScreen.dart';
 import '../../../food/presentation/FoodMenu_page.dart';
+import '../../../rent/presentation/PayRentScreen.dart';
 import '../View_page.dart';
 
 Container HomeBox2(
@@ -235,7 +236,7 @@ Expanded HomePageOtherthings(BuildContext context) {
           }, 50),
           SH10,
           HomePageUsage("Pay rent", Icons.attach_money, () {
-            Navigator.push(context, MaterialPageRoute(builder: (context)=> AnnoucementLogScreen(isAdmin: false)));
+            Navigator.push(context, MaterialPageRoute(builder: (context)=> PayRentScreen()));
           }, 50),
         ],
       ),

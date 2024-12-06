@@ -71,6 +71,7 @@ flutter:
      - lib/core/assets/images/nocleaning.png
      - lib/core/assets/images/cleaning.png
      - lib/core/assets/images/foodmenu.png
+     - lib/core/assets/images/payrent.png
      - .env
 
   # An image asset can refer to one or more resolution-specific "variants", see
