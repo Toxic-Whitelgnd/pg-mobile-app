@@ -31,4 +31,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
+//Commad to build web: flutter build web --web-renderer html
+
 
