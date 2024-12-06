@@ -10,3 +10,4 @@ const MONGO_CLIENT_COLLECTION = "client";
 const MONGO_CLIENTHISTORY_COLLECTION = "clientHistory";
 const MONGO_ROOMCLEANING_COLLECTION = "roomcleaning";
 const MONGO_FOODMENU_COLLECTION = "foodmenu";
+const MONGO_ANNOUCMENT_COLLECTION = "annoucement";

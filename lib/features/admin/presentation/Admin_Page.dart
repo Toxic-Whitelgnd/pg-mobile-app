@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pgapp/features/admin/presentation/AnnoucementAdmin_Page.dart';
 import 'package:pgapp/features/admin/presentation/CleaningServiceAdmin_Page.dart';
 import 'package:pgapp/features/admin/presentation/ClientHistory_Page.dart';
 import 'package:pgapp/features/admin/presentation/FoodAdmin.dart';
@@ -51,7 +52,10 @@ class _AdminScreenState extends State<AdminScreen> {
           HomePageUsage("Food", Icons.fastfood_sharp, (){
             Navigator.push(context, MaterialPageRoute(builder: (context)=> const FoodAdminScreen()));
           },50),
-
+          SH10,
+          HomePageUsage("Make Announcement", Icons.announcement_outlined, (){
+            Navigator.push(context, MaterialPageRoute(builder: (context)=> const AnnoucementScreen()));
+          },50),
         ],
       ),
     );
