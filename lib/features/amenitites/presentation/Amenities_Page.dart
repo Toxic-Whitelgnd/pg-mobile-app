@@ -8,6 +8,9 @@ import 'package:pgapp/di/locator.dart';
 import 'package:pgapp/services/MongoDB.dart';
 import 'package:pgapp/services/dataService/amenitieService.dart';
 
+import '../../../core/constants/constants.dart';
+import '../model/AmenitiesModel.dart';
+
 class AmenitiesScreen extends StatefulWidget {
   const AmenitiesScreen({super.key});
 
@@ -17,16 +20,25 @@ class AmenitiesScreen extends StatefulWidget {
 
 class _AmenitiesScreenState extends State<AmenitiesScreen> {
   final AmenityService _amenityService = locator<AmenityService>();
+  List<Amenities>? amenities;
+
+  Future<void> getAmenities() async {
+    var res = await _amenityService.getAmenitiesData();
+    if (res.isNotEmpty) {
+      setState(() {
+        amenities = res;
+      });
+    }
+  }
 
   @override
   void initState() {
     super.initState();
-    // _mongoService.connect();
+    getAmenities();
   }
 
   @override
   void dispose() {
-    // _mongoService.close();
     super.dispose();
   }
 
@@ -43,25 +55,24 @@ class _AmenitiesScreenState extends State<AmenitiesScreen> {
           Expanded(
             child: Padding(
               padding: const EdgeInsets.all(20.0),
-              child: GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2, // 2 columns
-                  crossAxisSpacing: 20,
-                  mainAxisSpacing: 20,
-                  childAspectRatio: 1,
-                ),
-                itemCount: 10, // You can change this to the number of items you want
-                itemBuilder: (context, index) {
-                  return AmenitesCard();
-                },
-              ),
+              child: amenities == null
+                  ? const Center(child: CircularProgressIndicator())
+                  : GridView.builder(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2, // 2 columns
+                        crossAxisSpacing: 20,
+                        mainAxisSpacing: 20,
+                        childAspectRatio: 1,
+                      ),
+                      itemCount: amenities!
+                          .length, // You can change this to the number of items you want
+                      itemBuilder: (context, index) {
+                        final item = amenities![index];
+                        return AmenitesCard(item);
+                      },
+                    ),
             ),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              _amenityService.getAmenitiesData();
-            },
-            child: Text("Click to get"),
           ),
         ],
       ),
@@ -69,7 +80,7 @@ class _AmenitiesScreenState extends State<AmenitiesScreen> {
   }
 
   // AmenitesCard widget
-  Container AmenitesCard() {
+  Container AmenitesCard(Amenities a) {
     return Container(
       decoration: BoxDecoration(
         color: CustomColors.secondary1,
@@ -85,27 +96,31 @@ class _AmenitiesScreenState extends State<AmenitiesScreen> {
       ),
       width: 130,
       height: 130,
-      child: const Stack(
+      child: Stack(
         children: [
           Positioned(
-            top: 80,
+            top: 40,
             left: 40,
-            child: Text(
-              "Wifi",
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.w500,
-                color: Colors.white,
-              ),
-            ),
-          ),
-          Positioned(
-            top: 30,
-            left: 45,
-            child: Icon(
-              size: 46,
-              Icons.wifi,
-              color: Colors.white70,
+            child: Column(
+               // Adjust the column size to the content
+              crossAxisAlignment:
+                  CrossAxisAlignment.center, // Center horizontally
+              children: [
+                Icon(
+                  iconMap[a.icon], // Use the icon from your iconMap
+                  size: 46,
+                  color: Colors.white70,
+                ),
+                SizedBox(height: 8), // Space between the icon and text
+                Text(
+                  a.name,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.white,
+                  ),
+                ),
+              ],
             ),
           ),
         ],
@@ -113,4 +128,3 @@ class _AmenitiesScreenState extends State<AmenitiesScreen> {
     );
   }
 }
-
