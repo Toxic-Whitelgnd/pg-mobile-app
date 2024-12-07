@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import '../core/constants/constants.dart';
+
 String dateFormatter(){
   DateTime dt = DateTime.now();
   DateFormat df = DateFormat("dd-MM-yyyy HH:mm");
@@ -17,4 +19,7 @@ void CustomToaster(BuildContext context,String text,Color bg,[Color tc = Colors.
         backgroundColor:bg,
       )
   );
+}
+IconData stringToIcon(String iconName) {
+  return iconMap[iconName] ?? Icons.help_outline; // Fallback icon
 }

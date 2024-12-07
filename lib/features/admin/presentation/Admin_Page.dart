@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pgapp/features/admin/presentation/AmenitiesAdmin_Page.dart';
 import 'package:pgapp/features/admin/presentation/AnnoucementAdmin_Page.dart';
 import 'package:pgapp/features/admin/presentation/CleaningServiceAdmin_Page.dart';
 import 'package:pgapp/features/admin/presentation/ClientHistory_Page.dart';
@@ -55,6 +56,10 @@ class _AdminScreenState extends State<AdminScreen> {
           SH10,
           HomePageUsage("Make Announcement", Icons.announcement_outlined, (){
             Navigator.push(context, MaterialPageRoute(builder: (context)=> const AnnoucementScreen()));
+          },50),
+          SH10,
+          HomePageUsage("Amenities", Icons.add_box_rounded, (){
+            Navigator.push(context, MaterialPageRoute(builder: (context)=> const AmenitiesAdminScreen()));
           },50),
         ],
       ),

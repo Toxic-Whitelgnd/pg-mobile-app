@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:pgapp/core/constants/constants.dart';
 import 'package:pgapp/features/complaints/presentation/ComplaintScreen.dart';
 import 'package:pgapp/features/home/presentation/widgets/HomePageWidgets.dart';
+import 'package:pgapp/features/rent/presentation/PayRentScreen.dart';
 import 'package:pgapp/features/roomcleaning/presentation/RoomCleaning_Page.dart';
 
 import '../../admin/presentation/AdminRoomClient_Page.dart';
@@ -62,7 +63,7 @@ class ViewAllPage extends StatelessWidget {
         name: "Pay Rent",
         icon: Icons.attach_money,
         onPressed: () {
-          print("navigate to cleaning service");
+          Navigator.push(context, MaterialPageRoute(builder: (context) => PayRentScreen()));
         },
       ),
       HomePageItem(
